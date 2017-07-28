@@ -136,7 +136,7 @@ puts "Type ';;' to stop"
 loop do
 	input = STDIN.gets.chomp
 	break if input == ';;'
-	$methods << input.split(' ').split('@')
+	$methods << input.split(' ').map{|x| x.split('@')}
 end
 
 puts "Generating #{$classname}.cpp and #{$classname}.hpp"
