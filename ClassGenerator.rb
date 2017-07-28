@@ -142,16 +142,16 @@ end
 puts "Generating #{$classname}.cpp and #{$classname}.hpp"
 
 $template = File.open('TC.cpp')
-$output = File.open("../srcs/#{$classname}.cpp", 'w')
+$output = File.open("#{$classname}.cpp", 'w')
 
 $matched = false
 $template.each do |line|
 	$matched = false
-	CPP.args(line)											 and next if line.match(/<args>/)
+	CPP.args(line)						 and next if line.match(/<args>/)
 	CPP.constructor                                          and next if line.match(/<constructor>/)
-	CPP.setters   			                                 and next if line.match(/<setters>/)
-	CPP.getters             			                     and next if line.match(/<getters>/)
-	CPP.methods                                     		 and next if line.match(/<methods>/)
+	CPP.setters   			                         and next if line.match(/<setters>/)
+	CPP.getters             			         and next if line.match(/<getters>/)
+	CPP.methods                                     	 and next if line.match(/<methods>/)
 	CPP.copy_constructor                                     and next if line.match(/<copy constructor>/)
 	CPP.equals_operator                         	         and next if line.match(/<= operator>/)
 	CPP.classname(line)  	                                 and next
@@ -160,12 +160,12 @@ end
 $template.close
 $output.close
 $template = File.open('TC.hpp')
-$output = File.open("../includes/#{$classname}.hpp", 'w')
+$output = File.open("#{$classname}.hpp", 'w')
 
 $matched = false
 $template.each do |line|
 	$matched = false
-	HPP.args(line)	 								and next if line.match(/<args>/)
+	HPP.args(line)	 				and next if line.match(/<args>/)
 	HPP.classnamecapital(line)                      and next if line.match(/<classnamecapital>/)
 	HPP.setters                                     and next if line.match(/<setters>/)
 	HPP.getters                                     and next if line.match(/<getters>/)
