@@ -13,4 +13,3 @@ This generator was coded using ruby version 2.0.0.
 * Templates
 * Interfaces
 * Adaptors
-* Seperation of type and arguement name when creating methods 

@@ -47,7 +47,7 @@ class CPP
 
 	def self.methods
 		$methods.each do |method|
-			args = method.count > 2 ? method[2..method.count].join(', ') : ''
+			args = method.count > 2 ? method[2..method.count].map{|x| x.join(' ') }.join(', ') : ''
 			$output.puts("#{method[0]}\t#{$classname.capitalize}::#{method[1]}(#{args})") if $matched == false
 			$output.puts("{") if $matched == false
 			$output.puts("")  if $matched == false
@@ -90,7 +90,7 @@ class HPP
 
 	def self.methods
 		$methods.each do |method|
-			args = method.count > 2 ? method[2..method.count].join(', ') : ''
+			args = method.count > 2 ? method[2..method.count].map{|x| x.join(' ') }.join(', ') : ''
 			$output.puts("\t\t#{method[0]}\t#{method[1]}(#{args});") if $matched == false
 		end
 		$matched = true
@@ -130,13 +130,13 @@ loop do
 end
 
 puts 'Please describe the methods you want as follows:'
-puts 'returnValue methodName arg1 arg2 argN'
+puts 'returnValue methodName type1@arg1 type2@arg2 typeN@argN'
 puts "Type ';;' to stop" 
 
 loop do
 	input = STDIN.gets.chomp
 	break if input == ';;'
-	$methods << input.split(' ')
+	$methods << input.split(' ').split('@')
 end
 
 puts "Generating #{$classname}.cpp and #{$classname}.hpp"
