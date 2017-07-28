@@ -1,4 +1,4 @@
-#include "../includes/<classname>.hpp" 
+#include "<classname>.hpp" 
 
 //Constructors
 <classname>::<classname>(<args>)
