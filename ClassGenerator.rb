@@ -48,7 +48,7 @@ class CPP
 	def self.methods
 		$methods.each do |method|
 			args = method.count > 2 ? method[2..method.count].map{|x| x.join(' ') }.join(', ') : ''
-			$output.puts("#{method[0]}\t#{$classname.capitalize}::#{method[1]}(#{args})") if $matched == false
+			$output.puts("#{method[0].first}\t#{$classname.capitalize}::#{method[1].first}(#{args})") if $matched == false
 			$output.puts("{") if $matched == false
 			$output.puts("")  if $matched == false
 			$output.puts("}") if $matched == false
@@ -91,7 +91,7 @@ class HPP
 	def self.methods
 		$methods.each do |method|
 			args = method.count > 2 ? method[2..method.count].map{|x| x.join(' ') }.join(', ') : ''
-			$output.puts("\t\t#{method[0]}\t#{method[1]}(#{args});") if $matched == false
+			$output.puts("\t\t#{method[0].first}\t#{method[1].first}(#{args});") if $matched == false
 		end
 		$matched = true
 	end
@@ -142,7 +142,7 @@ end
 puts "Generating #{$classname}.cpp and #{$classname}.hpp"
 
 $template = File.open('TC.cpp')
-$output = File.open("#{$classname}.cpp", 'w')
+$output = File.open("../srcs/#{$classname}.cpp", 'w')
 
 $matched = false
 $template.each do |line|
@@ -160,7 +160,7 @@ end
 $template.close
 $output.close
 $template = File.open('TC.hpp')
-$output = File.open("#{$classname}.hpp", 'w')
+$output = File.open("../includes/#{$classname}.hpp", 'w')
 
 $matched = false
 $template.each do |line|
