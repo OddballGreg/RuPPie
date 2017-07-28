@@ -6,6 +6,9 @@ A generator for Coplien form C++ classes
 * run 'ruby ClassGenerator.rb'
 * Follow the prompts as directed
 
+## Notes
+This generator was coded using ruby version 2.0.0. 
+
 ## To Do
 * Templates
 * Interfaces
