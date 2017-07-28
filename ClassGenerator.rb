@@ -1,5 +1,5 @@
-require 'CPP.rb'
-require 'HPP.rb'
+require './CPP.rb'
+require './HPP.rb'
 
 $variables = []
 $methods = []
@@ -35,14 +35,14 @@ $output = File.open("../srcs/#{$classname}.cpp", 'w')
 $matched = false
 $template.each do |line|
 	$matched = false
-	CPP.args(line)						 and next if line.match(/<args>/)
-	CPP.constructor                                          and next if line.match(/<constructor>/)
-	CPP.setters   			                         and next if line.match(/<setters>/)
-	CPP.getters             			         and next if line.match(/<getters>/)
-	CPP.methods                                     	 and next if line.match(/<methods>/)
-	CPP.copy_constructor                                     and next if line.match(/<copy constructor>/)
-	CPP.equals_operator                         	         and next if line.match(/<= operator>/)
-	CPP.classname(line)  	                                 and next
+	CPP.args(line)									and next if line.match(/<args>/)
+	CPP.constructor                                 and next if line.match(/<constructor>/)
+	CPP.setters   			                        and next if line.match(/<setters>/)
+	CPP.getters             			       		and next if line.match(/<getters>/)
+	CPP.methods                                  	and next if line.match(/<methods>/)
+	CPP.copy_constructor               	            and next if line.match(/<copy constructor>/)
+	CPP.equals_operator                             and next if line.match(/<= operator>/)
+	CPP.classname(line)  	                        and next
 end
 
 $template.close
@@ -53,7 +53,7 @@ $output = File.open("../includes/#{$classname}.hpp", 'w')
 $matched = false
 $template.each do |line|
 	$matched = false
-	HPP.args(line)	 				and next if line.match(/<args>/)
+	HPP.args(line)	 								and next if line.match(/<args>/)
 	HPP.classnamecapital(line)                      and next if line.match(/<classnamecapital>/)
 	HPP.setters                                     and next if line.match(/<setters>/)
 	HPP.getters                                     and next if line.match(/<getters>/)
