@@ -1,7 +1,7 @@
 #ifndef <classnamecapital>_HPP
 # define <classnamecapital>_HPP
 
-# include "../includes/<classname>.hpp"
+# include "<classname>.hpp"
 
 class <classname>
 {
