@@ -4,10 +4,10 @@ require './HPP.rb'
 $variables = []
 $methods = []
 
-puts 'Please describe the methods classname:'
+puts 'Please describe the classname:'
 $classname = STDIN.gets.chomp.capitalize
 
-puts 'Please describe the methods you want as follows:'
+puts 'Please describe the variables you want as follows:'
 puts 'type name'
 puts "Type ';;' to stop" 
 
