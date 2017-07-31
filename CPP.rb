@@ -19,14 +19,14 @@ class CPP
 
 	def self.copy_constructor
 		$variables.each do |var|
-			$output.puts("\tthis->_#{var.last} = obj.#{var.last};") if $matched == false
+			$output.puts("\tthis->_#{var.last} = obj._#{var.last};") if $matched == false
 		end
 		$matched = true
 	end
 
 	def self.equals_operator
 		$variables.each do |var|
-			$output.puts("\tthis->_#{var.last} = obj.#{var.last};") if $matched == false
+			$output.puts("\tthis->_#{var.last} = obj._#{var.last};") if $matched == false
 		end
 		$matched = true
 	end
