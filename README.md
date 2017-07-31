@@ -17,3 +17,4 @@ The script determines where to place the necessary code by way for looking for x
 * Templates
 * Interfaces
 * Adaptors
+* .yml configurable tags for custom content
