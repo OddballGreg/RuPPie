@@ -34,7 +34,7 @@ class HPP
 
 	def self.headerargs
 		$variables.each do |var|
-			$output.puts("\t\t#{var.first}\t_#{var.last.capitalize};") if $matched == false
+			$output.puts("\t\t#{var.first}\t_#{var.last};") if $matched == false
 		end
 		$matched = true
 	end

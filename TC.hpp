@@ -1,8 +1,6 @@
 #ifndef <classnamecapital>_HPP
 # define <classnamecapital>_HPP
 
-# include "<classname>.hpp"
-
 class <classname>
 {
 	public:
