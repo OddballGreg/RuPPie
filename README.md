@@ -1,5 +1,5 @@
-# cpp_class_generator
-A generator for Coplien form C++ classes
+# RuPPie
+A templating engine for C++ classes powered by Ruby.
 
 ## Usage
 * git clone this repository to the working directory of your C++ project.
