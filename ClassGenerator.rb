@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require './CPP.rb'
 require './HPP.rb'
 require './XMLReader.rb'
