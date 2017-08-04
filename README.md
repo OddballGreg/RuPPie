@@ -21,3 +21,4 @@ The script determines where to place the necessary code by way for looking for x
 * Use yml instead of XML for class definition.
 * Automatically detect class files.
 * Custom constructor definitions
+* Better code to handle absolute pathing so that the class generator can be run from anywhere, including makefiles
