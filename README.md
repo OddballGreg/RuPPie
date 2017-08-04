@@ -1,10 +1,11 @@
 # RuPPie
 A templating engine for C++ classes powered by Ruby.
 
-## Usage
+## Basic Usage
 * git clone this repository to the working directory of your C++ project.
+* Register your class files according to the example given in "classes/classfiles.xml"
+* Define your classes in the style defined by "classes/example.xml" 
 * run 'ruby ClassGenerator.rb'
-* Follow the prompts as directed
 
 ## Notes
 This generator was coded using ruby version 2.0.0. 
@@ -17,4 +18,6 @@ The script determines where to place the necessary code by way for looking for x
 * Templates
 * Interfaces
 * Adaptors
-* .yml configurable tags for custom content
+* Use yml instead of XML for class definition.
+* Automatically detect class files.
+* Custom constructor definitions

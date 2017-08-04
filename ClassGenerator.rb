@@ -1,63 +1,57 @@
 require './CPP.rb'
 require './HPP.rb'
+require './XMLReader.rb'
 
-$variables = []
-$methods = []
+classes = XMLReader.import('classes/classfiles.xml')
+classes.each do |classname, class_info|
+	$classname = classname.chomp.capitalize
+	$variables = []
+	$methods = []
+	$typedefs = class_info['typedefs'] || []
+	$headers = class_info['headers'] || []
 
-puts 'Please describe the classname:'
-$classname = STDIN.gets.chomp.capitalize
+	class_info['variables'].each do |var|
+		$variables << var.split(' ')
+	end
 
-puts 'Please describe the variables you want as follows:'
-puts 'type name'
-puts "Type ';;' to stop" 
+	class_info['methods'].each do |method|
+		$methods << method
+	end
 
-loop do
-	input = STDIN.gets.chomp
-	break if input == ';;'
-	$variables << input.split(' ')
-end
+	puts "Generating #{$classname}.cpp and #{$classname}.hpp"
 
-puts 'Please describe the methods you want as follows:'
-puts 'returnValue methodName type1@arg1 type2@arg2 typeN@argN'
-puts "Type ';;' to stop" 
+	$template = File.open('TC.cpp')
+	$output = File.open("../srcs/#{$classname}.cpp", 'w')
 
-loop do
-	input = STDIN.gets.chomp
-	break if input == ';;'
-	$methods << input.split(' ').map{|x| x.split('@')}
-end
-
-puts "Generating #{$classname}.cpp and #{$classname}.hpp"
-
-$template = File.open('TC.cpp')
-$output = File.open("../srcs/#{$classname}.cpp", 'w')
-
-$matched = false
-$template.each do |line|
 	$matched = false
-	CPP.args(line)									and next if line.match(/<args>/)
-	CPP.constructor                                 and next if line.match(/<constructor>/)
-	CPP.setters   			                        and next if line.match(/<setters>/)
-	CPP.getters             			       		and next if line.match(/<getters>/)
-	CPP.methods                                  	and next if line.match(/<methods>/)
-	CPP.copy_constructor               	            and next if line.match(/<copy constructor>/)
-	CPP.equals_operator                             and next if line.match(/<= operator>/)
-	CPP.classname(line)  	                        and next
-end
+	$template.each do |line|
+		$matched = false
+		CPP.args(line)									and next if line.match(/<args>/)
+		CPP.constructor                                 and next if line.match(/<constructor>/)
+		CPP.setters   			                        and next if line.match(/<setters>/)
+		CPP.getters             			       		and next if line.match(/<getters>/)
+		CPP.methods                                  	and next if line.match(/<methods>/)
+		CPP.copy_constructor               	            and next if line.match(/<copy constructor>/)
+		CPP.equals_operator                             and next if line.match(/<= operator>/)
+		CPP.classname(line)  	                        and next
+	end
 
-$template.close
-$output.close
-$template = File.open('TC.hpp')
-$output = File.open("../includes/#{$classname}.hpp", 'w')
+	$template.close
+	$output.close
+	$template = File.open('TC.hpp')
+	$output = File.open("../includes/#{$classname}.hpp", 'w')
 
-$matched = false
-$template.each do |line|
 	$matched = false
-	HPP.args(line)	 								and next if line.match(/<args>/)
-	HPP.classnamecapital(line)                      and next if line.match(/<classnamecapital>/)
-	HPP.setters                                     and next if line.match(/<setters>/)
-	HPP.getters                                     and next if line.match(/<getters>/)
-	HPP.methods                                     and next if line.match(/<methods>/)
-	HPP.headerargs                                  and next if line.match(/<headerargs>/)
-	HPP.classname(line)                             and next
+	$template.each do |line|
+		$matched = false
+		HPP.args(line)	 								and next if line.match(/<args>/)
+		HPP.classnamecapital(line)                      and next if line.match(/<classnamecapital>/)
+		HPP.setters                                     and next if line.match(/<setters>/)
+		HPP.getters                                     and next if line.match(/<getters>/)
+		HPP.methods                                     and next if line.match(/<methods>/)
+		HPP.headerargs                                  and next if line.match(/<headerargs>/)
+		HPP.headers 	                                and next if line.match(/<headers>/)
+		HPP.typedefs	                                and next if line.match(/<typedefs>/)
+		HPP.classname(line)                             and next
+	end
 end

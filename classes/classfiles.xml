@@ -1,0 +1,11 @@
+<file>vector</file>
+<file>wall</file>
+<file>powerup</file>
+<file>player</file>
+<file>opponent</file>
+<file>obstacle</file>
+<file>entity</file>
+<file>character</file>
+<file>gamestate</file>
+<file>explosion</file>
+<file>bomb</file>

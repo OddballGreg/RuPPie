@@ -1,6 +1,10 @@
 #ifndef <classnamecapital>_HPP
 # define <classnamecapital>_HPP
 
+<headers>
+
+<typedefs>
+
 class <classname>
 {
 	public:

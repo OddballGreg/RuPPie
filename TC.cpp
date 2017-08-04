@@ -3,18 +3,24 @@
 //Constructors
 <classname>::<classname>(<args>)
 {
+	Log.log("<classname>", "Constructor", CRITICAL);
 	<constructor>
 }
 
 <classname>::<classname>(const <classname> &obj)
 {
+	Log.log("<classname>", "Copy Constructor", CRITICAL);
 	<copy constructor>
 }
 
-<classname>::~<classname>(){}
+<classname>::~<classname>()
+{
+	Log.log("<classname>", "Deconstructor", CRITICAL);
+}
 
 <classname> &<classname>::operator =(const <classname> &obj)
 { 
+	Log.log("<classname>", "= Operator", CRITICAL);
 	<= operator>
 	return *this; 
 }
