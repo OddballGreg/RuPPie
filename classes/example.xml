@@ -2,5 +2,12 @@
 <variable>int value</variable>
 <variable>std::string name</variable>
 
-<method>void example int@value std::string@name</method>
+<method>
+<prototype>void example int@value std::string@name</prototype>
+<definition>
+{
+  //Write your defintion here 
+}
+</defition>
+</method>
 </class>
