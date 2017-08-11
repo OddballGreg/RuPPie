@@ -1,0 +1,7 @@
+<classname>powerup</classname>
+
+<header>"../includes/Log.hpp"</header>
+
+<variable>double value</variable>
+
+<method>void apply Entity@target</method>

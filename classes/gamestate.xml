@@ -1,0 +1,37 @@
+<classname>gamestate</classname>
+
+<header>"../includes/Log.hpp"</header>
+<header>"../includes/Entity.hpp"</header>
+<header><unordered_map></header>
+
+<typedef>std::unordered_map<unsigned int, Entity> t_entityMap</typedef>
+
+<variable>t_entityMap entities</variable>
+
+<method>
+<prototype>void spawnPlayer Vector@pos</prototype>
+<definition>
+{
+	IT WORKS
+}
+</definition>
+</method>
+
+<method>
+<prototype>void spawnOpponent Vector@pos</prototype>
+<definition>
+</definition>
+</method>
+
+<method>
+<prototype>void spawnObstacle Vector@pos</prototype>
+<definition>
+</definition>
+</method>
+
+<method>
+<prototype>void spawnBomb Vector@pos</prototype>
+<definition>
+</definition>
+</method>
+

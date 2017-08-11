@@ -1,6 +1,0 @@
-<class>example
-<variable>int value</variable>
-<variable>std::string name</variable>
-
-<method>void example int@value std::string@name</method>
-</class>

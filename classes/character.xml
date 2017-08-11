@@ -1,0 +1,19 @@
+<classname>character</classname>
+
+<header>"../includes/Log.hpp"</header>
+<header>"../includes/Vector.hpp"</header>
+<header>"../includes/Entity.hpp"</header>
+
+<variable>double lives</variable>
+<variable>double max_lives</variable>
+<variable>double speed</variable>
+<variable>double attack_power</variable>
+<variable>double bombs</variable>
+<variable>double max_bombs</variable>
+
+<method>void move_north</method>
+<method>void move_east</method>
+<method>void move_south</method>
+<method>void move_west</method>
+<method>void increaseAP double@amount</method>
+<method>Entity placeBomb Vector@location</method>

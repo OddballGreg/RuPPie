@@ -1,0 +1,7 @@
+<classname>explosion</classname>
+
+<header>"../includes/Log.hpp"</header>
+
+<variable>double duration</variable>
+
+<method>void tick</method>

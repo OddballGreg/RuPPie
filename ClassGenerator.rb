@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-require './CPP.rb'
-require './HPP.rb'
-require './XMLReader.rb'
+require_relative './CPP.rb'
+require_relative './HPP.rb'
+require_relative './ClassReader.rb'
 
-classes = XMLReader.import('classes/classfiles.xml')
+classes = ClassReader.import('classes')
 classes.each do |classname, class_info|
 	$classname = classname.chomp.capitalize
 	$variables = []

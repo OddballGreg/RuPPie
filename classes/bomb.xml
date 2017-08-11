@@ -1,0 +1,9 @@
+<classname>bomb</classname>
+
+<header>"../includes/Log.hpp"</header>
+
+<variable>double secondstodetonation</variable>
+<variable>double spread</variable>
+
+<method>void tick</method>
+<method>t_entityMap *reverseVector t_entityMap@entities</method>

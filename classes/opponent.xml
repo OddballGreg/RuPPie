@@ -1,0 +1,6 @@
+<classname>opponent</classname>
+
+<header>"../includes/Log.hpp"</header>
+<header>"../includes/Gamestate.hpp"</header>
+
+<method>void runAI t_entityMap@entities</method>

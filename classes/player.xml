@@ -1,0 +1,7 @@
+<classname>player</classname>
+
+<header>"../includes/Log.hpp"</header>
+
+<variable>std::string playerName</variable>
+<variable>bool win</variable>
+<variable>bool active</variable>

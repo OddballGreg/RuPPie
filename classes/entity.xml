@@ -1,0 +1,16 @@
+<classname>entity</classname>
+
+<header>"../includes/Log.hpp"</header>
+<header>"../includes/Vector.hpp"</header>
+
+<variable>std::string name</variable>
+<variable>std::string type</variable>
+<variable>Vector location</variable>
+<variable>Vector facing</variable>
+<variable>bool destructable</variable>
+<variable>std::string sprite</variable>
+<variable>double collisionRadius</variable>
+<variable>bool collideable</variable>
+
+<method>void move</method>
+<method>void die</method>

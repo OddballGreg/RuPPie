@@ -1,0 +1,14 @@
+<classname>vector</classname>
+
+<header>"../includes/Log.hpp"</header>
+
+<variable>double x</variable>
+<variable>double y</variable>
+<variable>double z</variable>
+<variable>double dx</variable>
+<variable>double dy</variable>
+<variable>double dz</variable>
+
+<method>void proceedVector int@times</method>
+<method>void reverseVector int@times</method>
+<method>void inverseVector int@times</method>
