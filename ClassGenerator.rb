@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require_relative './CPP.rb'
-require_relative './HPP.rb'
-require_relative './ClassReader.rb'
+require_relative './sources/CPP.rb'
+require_relative './sources/HPP.rb'
+require_relative './sources/ClassReader.rb'
 
 classes = ClassReader.import('classes')
 classes.each do |classname, class_info|
@@ -22,7 +22,7 @@ classes.each do |classname, class_info|
 
 	puts "Generating #{$classname}.cpp and #{$classname}.hpp"
 
-	$template = File.open('TC.cpp')
+	$template = File.open('sources/TC.cpp')
 	$output = File.open("../srcs/#{$classname}.cpp", 'w')
 
 	$matched = false
@@ -40,7 +40,7 @@ classes.each do |classname, class_info|
 
 	$template.close
 	$output.close
-	$template = File.open('TC.hpp')
+	$template = File.open('sources/TC.hpp')
 	$output = File.open("../includes/#{$classname}.hpp", 'w')
 
 	$matched = false
