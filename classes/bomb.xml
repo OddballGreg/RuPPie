@@ -5,5 +5,17 @@
 <variable>double secondstodetonation</variable>
 <variable>double spread</variable>
 
-<method>void tick</method>
-<method>t_entityMap *reverseVector t_entityMap@entities</method>
+<method>
+<prototype>void tick</prototype>
+<definition>
+
+</definition>
+</method>
+
+<method>
+<prototype>t_entityMap *reverseVector t_entityMap@entities</prototype>
+<definition>
+
+</definition>
+</method>
+
