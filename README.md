@@ -27,5 +27,6 @@ RuPPie was written with certain assumptions regarding the way you've structured 
 * Templates
 * Interfaces
 * Adaptors
+* Non class C++ files, functions and headers
 * Use yml instead of XML for class definition.
 * Better arguement handling to define the location of classfiles and where to output to. This will allow a user to completely remove RuPPie from their project directory
