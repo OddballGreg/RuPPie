@@ -7,7 +7,6 @@ class ClassReader
 		digest = {}
 		digestfile.read.each_line{|line| digest[line.split('.').first] = line.split('.').last}
 		digestfile.close
-		digestfile = File.open('.classdigest', 'w')
 		newdigest = {}
 
 		class_info = {}
@@ -18,44 +17,65 @@ class ClassReader
 			newdigest[filename.split('.').first] = Digest::SHA1.digest(file).encode('UTF-8', invalid: :replace, undef: :replace)
 
 			classname = ''
-			method_set = false
-			method_definition = false
-			current_prototype = nil
+
+			in_in_method_set = false
+			in_in_method_definition = false
+			current_method_prototype = nil
+			
+			in_constructor_set = false
+			in_constructor_definition = false
+			current_constructor_args = nil
+
 			file.each_line do |line|
+				# Detect Start and End Of Constructor Blocks, Store Constructor Prototypes and Defitions
+				in_constructor_set = true if line.match(/<constructor>/) 
+				if in_constructor_set
+					in_constructor_set 													= false												if line.match(/<\/constructor>/)
+					current_constructor_args                   							= line.match(/<args>(.*)<\/args>/)[1]				if line.match(/<args>.*<\/args>/)
+					class_info[classname]['constructors'][current_constructor_args]		= []												if line.match(/<args>.*<\/args>/) 
+					in_constructor_definition											= true												if line.match(/<definition>/)		 
+					raise "Constructor defintion without prototype in #{filename}"															if line.match(/<definition>/) && current_constructor_args.nil? 
+					if in_constructor_definition
+						in_constructor_definition										= false										 		if line.match(/<\/definition>/)
+						class_info[classname]['constructors'][current_constructor_args] << line 											if !line.match(/<definition>/) && !line.match(/<\/definition>/)
+						next
+					end
+					next
+				end
+
 				# Detect Start and End Of Method Blocks, Store Method Prototypes and Defitions
-				method_set 												= false												if line.match(/<\/method>/) 				&& method_set
-				method_definition										= false										 		if line.match(/<\/definition>/)				&& method_set && method_definition
-				method_set 												= true										 		if line.match(/<method>/) 
-				current_prototype                   					= line.match(/<prototype>(.*)<\/prototype>/)[1]		if line.match(/<prototype>.*<\/prototype>/) && method_set
-				class_info[classname]['methods'][current_prototype]		= []												if line.match(/<prototype>.*<\/prototype>/) && method_set
-				method_definition										= true												if line.match(/<definition>/)				&& method_set 
-				raise "Method defintion without prototype in #{filename}"													if line.match(/<definition>/)				&& current_prototype.nil? 
-				class_info[classname]['methods'][current_prototype] 	<< line 											if !line.match(/<definition>/) 				&& method_set && method_definition
-				next if method_set or method_definition
-				
-				# Detect Start and End Of Method Blocks, Store Method Prototypes and Defitions
-				method_set 												= false												if line.match(/<\/method>/) 				&& method_set
-				method_definition										= false										 		if line.match(/<\/definition>/)				&& method_set && method_definition
-				method_set 												= true										 		if line.match(/<method>/) 
-				current_prototype                   					= line.match(/<prototype>(.*)<\/prototype>/)[1]		if line.match(/<prototype>.*<\/prototype>/) && method_set
-				class_info[classname]['methods'][current_prototype]		= []												if line.match(/<prototype>.*<\/prototype>/) && method_set
-				method_definition										= true												if line.match(/<definition>/)				&& method_set 
-				raise "Method defintion without prototype in #{filename}"													if line.match(/<definition>/)				&& current_prototype.nil? 
-				class_info[classname]['methods'][current_prototype] 	<< line 											if !line.match(/<definition>/) 				&& method_set && method_definition
-				next if method_set or method_definition
+				in_method_set = true if line.match(/<method>/) 
+				if in_method_set
+					in_method_set 														= false												if line.match(/<\/method>/) 				
+					current_method_prototype                   							= line.match(/<prototype>(.*)<\/prototype>/)[1]		if line.match(/<prototype>.*<\/prototype>/) 
+					class_info[classname]['methods'][current_method_prototype]			= []												if line.match(/<prototype>.*<\/prototype>/) 
+					in_method_definition												= true												if line.match(/<definition>/)				 
+					raise "Method defintion without prototype in #{filename}"																if line.match(/<definition>/) && current_method_prototype.nil? 
+					if in_method_definition
+						class_info[classname]['methods'][current_method_prototype] 		<< line 											if !line.match(/<definition>/) 	
+						in_method_definition											= false									 			if line.match(/<\/definition>/)	
+						next
+					end
+					next
+				end
 
 				# Register Classname, initialize hash container
-				classname               =  line.match(/<classname>(.*)<\/classname>/)[1]	 								if line.match(/<classname>.*<\/classname>/) 
-				class_info[classname] 	=  {'variables' => [], 'methods' => {}, 'headers' => [], 'typedefs' => []}			if line.match(/<classname>.*<\/classname>/)
+				if line.match(/<classname>.*<\/classname>/)
+					classname               =  line.match(/<classname>(.*)<\/classname>/)[1]	 										 
+					class_info[classname] 	=  {'variables' => [], 'methods' => {}, 'constructors' => {}, 'headers' => [], 'typedefs' => []}
+				end
 
 				# Detect single line variable and header defintions
-				class_info[classname]['variables'] 	<< line.match(/<variable>(.*)<\/variable>/)[1] 							if line.match(/<variable>.*<\/variable>/)
-				class_info[classname]['headers'] 	<< line.match(/<header>(.*)<\/header>/)[1]	 							if line.match(/<header>.*<\/header>/) 
-				class_info[classname]['typedefs'] 	<< line.match(/<typedef>(.*)<\/typedef>/)[1]	 						if line.match(/<typedef>.*<\/typedef>/) 
+				class_info[classname]['variables'] 	<< line.match(/<variable>(.*)<\/variable>/)[1] 											if line.match(/<variable>.*<\/variable>/)
+				class_info[classname]['headers'] 	<< line.match(/<header>(.*)<\/header>/)[1]	 											if line.match(/<header>.*<\/header>/) 
+				class_info[classname]['typedefs'] 	<< line.match(/<typedef>(.*)<\/typedef>/)[1]	 										if line.match(/<typedef>.*<\/typedef>/) 
 
 			end
 		end
-		newdigest.each{|k,v| digestfile.write("#{k}.#{v}\n") } unless newdigest.empty?
+		unless newdigest.empty?
+			digestfile = File.open('.classdigest', 'w')
+			newdigest.each{|k,v| digestfile.write("#{k}.#{v}\n") }
+		end
 		digestfile.close
 		return class_info
 	end

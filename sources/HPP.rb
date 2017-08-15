@@ -10,6 +10,16 @@ class HPP
 		$matched = true
 	end
 
+	def self.customconstructors
+		$constructors.each do |constructor|
+			definition = constructor.last
+			args = constructor.first.split(' ').map{|x| x.split('@')}
+			args = args.map{|x| x.join(' ') }.join(', ')
+			$output.puts("\t\t#{$classname.capitalize}::#{$classname.capitalize}(#{args});") if $matched == false
+		end
+		$matched = true
+	end
+
 	def self.typedefs
 		$typedefs.each do |type|
 			$output.puts("typedef #{type};") if $matched == false

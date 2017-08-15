@@ -10,6 +10,7 @@ class <classname>
 	public:
 		// Constructors & Destructors
 		<classname>(<args>);
+		<customconstructors>
 		<classname>(const <classname> &obj);
 		~<classname>();
 

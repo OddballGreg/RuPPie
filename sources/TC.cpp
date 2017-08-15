@@ -7,6 +7,8 @@
 	<constructor>
 }
 
+<customconstructors>
+
 <classname>::<classname>(const <classname> &obj)
 {
 	Log.log("<classname>", "Copy Constructor", CRITICAL);

@@ -17,6 +17,21 @@ class CPP
 		$matched = true
 	end
 
+	def self.customconstructors
+		$constructors.each do |constructor|
+			definition = constructor.last
+			args = constructor.first.split(' ').map{|x| x.split('@')}
+			args = args.map{|x| x.join(' ') }.join(', ')
+			$output.puts("#{$classname.capitalize}::#{$classname.capitalize}(#{args})") if $matched == false
+			$output.puts("{")
+			definition.each do |line|
+				$output.puts("\t" + line) if $matched == false
+			end
+			$output.puts("}")
+		end
+		$matched = true
+	end
+
 	def self.copy_constructor
 		$variables.each do |var|
 			$output.puts("\tthis->_#{var.last} = obj._#{var.last};") if $matched == false
