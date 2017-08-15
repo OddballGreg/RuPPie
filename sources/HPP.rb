@@ -15,7 +15,7 @@ class HPP
 			definition = constructor.last
 			args = constructor.first.split(' ').map{|x| x.split('@')}
 			args = args.map{|x| x.join(' ') }.join(', ')
-			$output.puts("\t\t#{$classname.capitalize}::#{$classname.capitalize}(#{args});") if $matched == false
+			$output.puts("\t\t#{$classname.capitalize}(#{args});") if $matched == false
 		end
 		$matched = true
 	end

@@ -11,9 +11,15 @@
 <constructor>
 <args></args>
 <definition>
-IT WORKS
 </definition>
 </constructor>
+
+<method>
+<prototype>void run</prototype>
+<definition>
+	std::cout << "Game Has Started" << std::endl;
+</definition>
+</method>
 
 <method>
 <prototype>void spawnPlayer Vector@pos</prototype>
