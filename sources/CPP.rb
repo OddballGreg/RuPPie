@@ -51,9 +51,11 @@ class CPP
 			method = method.first.split(' ').map{|x| x.split('@')}
 			args = method.count > 2 ? method[2..method.count].map{|x| x.join(' ') }.join(', ') : ''
 			$output.puts("#{method[0].first}\t#{$classname.capitalize}::#{method[1].first}(#{args})") if $matched == false
+			$output.puts("{")
 			definition.each do |line|
-				$output.puts(line) if $matched == false
+				$output.puts("\t" + line) if $matched == false
 			end
+			$output.puts("}")
 			$output.puts ''
 		end
 		$matched = true

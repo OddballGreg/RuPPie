@@ -12,7 +12,7 @@ class HPP
 
 	def self.typedefs
 		$typedefs.each do |type|
-			$output.puts("typedef #{type}") if $matched == false
+			$output.puts("typedef #{type};") if $matched == false
 		end
 		$matched = true
 	end

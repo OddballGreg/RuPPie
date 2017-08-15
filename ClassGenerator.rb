@@ -4,26 +4,24 @@ require_relative './sources/CPP.rb'
 require_relative './sources/HPP.rb'
 require_relative './sources/ClassReader.rb'
 
-classes = ClassReader.import('classes')
+$dir   = ARGV[0] || __dir__
+$force = true if ARGV[1] == '-f'
+$root  = __dir__
+
+classes = ClassReader.import(File.expand_path('classes', $root))
 classes.each do |classname, class_info|
-	$classname = classname.chomp.capitalize
-	$variables = []
-	$methods = []
-	$typedefs = class_info['typedefs'] || []
-	$headers = class_info['headers'] || []
-
-	class_info['variables'].each do |var|
-		$variables << var.split(' ')
-	end
-
-	class_info['methods'].each do |method|
-		$methods << method
-	end
+	$classname 	= classname.chomp.capitalize
+	$variables 	= []
+	class_info['variables'].each { |var| $variables << var.split(' ') }
+	$methods 	= []
+	class_info['methods'].each   { |method| $methods << method }
+	$typedefs 	= class_info['typedefs'] || []
+	$headers 	= class_info['headers']  || []
 
 	puts "Generating #{$classname}.cpp and #{$classname}.hpp"
 
-	$template = File.open('sources/TC.cpp')
-	$output = File.open("../srcs/#{$classname}.cpp", 'w')
+	$template = File.open(File.expand_path('sources/TC.cpp', $root))
+	$output   = File.open($dir + "/srcs/#{$classname}.cpp", 'w')
 
 	$matched = false
 	$template.each do |line|
@@ -40,8 +38,8 @@ classes.each do |classname, class_info|
 
 	$template.close
 	$output.close
-	$template = File.open('sources/TC.hpp')
-	$output = File.open("../includes/#{$classname}.hpp", 'w')
+	$template = File.open(File.expand_path('sources/TC.hpp', $root))
+	$output = File.open($dir + "/includes/#{$classname}.hpp", 'w')
 
 	$matched = false
 	$template.each do |line|

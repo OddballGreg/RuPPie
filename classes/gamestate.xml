@@ -8,12 +8,17 @@
 
 <variable>t_entityMap entities</variable>
 
+<constructor>
+<args></args>
+<definition>
+IT WORKS
+</definition>
+</constructor>
+
 <method>
 <prototype>void spawnPlayer Vector@pos</prototype>
 <definition>
-{
-	IT WORKS
-}
+IT WORKS
 </definition>
 </method>
 
