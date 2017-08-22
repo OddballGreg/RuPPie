@@ -60,20 +60,17 @@ class ClassReader
 
 				# Detect Start and End Of Method Blocks, Store Method Prototypes and Defitions
 				in_method_set = true if line.match(/<method>/) 
-				# require 'pry'
-				# binding.pry
 				if in_method_set
 					in_method_set = false if line.match(/<\/method>/)
 					if line.match(/<prototype>.*<\/prototype>/) 
 						current_method_prototype = line.match(/<prototype>(.*)<\/prototype>/)[1]		
 						class_info[classname]['methods'][current_method_prototype] = []							
 					end
-					in_method_definition if line.match(/<definition>/)				 
-					raise "Method defintion without prototype in #{filename}" if line.match(/<definition>/) && current_method_prototype.nil?
 
+					in_method_definition = true if line.match(/<definition>/)				 
+					raise "Method defintion without prototype in #{filename}" if line.match(/<definition>/) && current_method_prototype.nil?
 					if in_method_definition
-						puts "In Defintion"
-						class_info[classname]['methods'][current_method_prototype] << line if !line.match(/<definition>/) 	
+						class_info[classname]['methods'][current_method_prototype] << line if !line.match(/<definition>/) && !line.match(/<\/definition>/)
 						in_method_definition = false if line.match(/<\/definition>/)	
 						next
 					end

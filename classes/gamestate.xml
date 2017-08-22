@@ -24,7 +24,6 @@
 <method>
 <prototype>void spawnPlayer Vector@pos</prototype>
 <definition>
-IT WORKS
 </definition>
 </method>
 

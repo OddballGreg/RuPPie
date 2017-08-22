@@ -9,6 +9,27 @@
 <variable>double dy</variable>
 <variable>double dz</variable>
 
-<method>void proceedVector int@times</method>
-<method>void reverseVector int@times</method>
-<method>void inverseVector int@times</method>
+<constructor>
+<args></args>
+<definition>
+_x = 0;
+_y = 0;
+_z = 0;
+_dx = 0;
+_dy = 0;
+_dz = 0;
+</definition>
+</constructor>
+
+<method>
+<prototype>void proceedVector int@times</prototype>
+</method>
+
+<method>
+<prototype>void reverseVector int@times</prototype>
+</method>
+
+<method>
+<prototype>void inverseVector int@times</prototype>
+
+</method>

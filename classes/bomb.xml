@@ -1,6 +1,7 @@
 <classname>bomb</classname>
 
 <header>"../includes/Log.hpp"</header>
+<header>"../includes/Gamestate.hpp"</header>
 
 <variable>double secondstodetonation</variable>
 <variable>double spread</variable>
@@ -13,9 +14,9 @@
 </method>
 
 <method>
-<prototype>t_entityMap *reverseVector t_entityMap@entities</prototype>
+<prototype>t_entityMap* reverseVector t_entityMap@entities</prototype>
 <definition>
-
+return new t_entityMap;
 </definition>
 </method>
 
