@@ -68,7 +68,7 @@ class ClassReader
 				end
 				if in_enum_set
 					if line.match(/<\/enum>/)
-						in_enum_set == false 
+						in_enum_set = false 
 						enum_offset += 1
 						next
 					end
