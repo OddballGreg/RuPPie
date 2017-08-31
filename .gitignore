@@ -31,3 +31,8 @@
 *.out
 *.app
 .classdigest
+
+# Other
+.DS_Store
+._*
+*.xml
