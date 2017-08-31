@@ -2,7 +2,7 @@
 # define <classnamecapital>_HPP
 
 <headers>
-
+<enums>
 <typedefs>
 
 class <classname>

@@ -22,13 +22,13 @@ classes.each do |classname, class_info|
 	class_info['constructors'].each   { |constructor| $constructors << constructor }
 	$typedefs 	= class_info['typedefs'] || []
 	$headers 	= class_info['headers']  || []
+	$enums 		= class_info['enums'] || []
 
 	puts "Generating #{$classname}.cpp and #{$classname}.hpp"
 
 	$template = File.open(File.expand_path('sources/TC.cpp', $root))
 	$output   = File.open($parent_dir + "/srcs/#{$classname}.cpp", 'w')
 
-	$matched = false
 	$template.each do |line|
 		$matched = false
 		CPP.args(line)									and next if line.match(/<args>/)
@@ -47,7 +47,6 @@ classes.each do |classname, class_info|
 	$template = File.open(File.expand_path('sources/TC.hpp', $root))
 	$output = File.open($parent_dir + "/includes/#{$classname}.hpp", 'w')
 
-	$matched = false
 	$template.each do |line|
 		$matched = false
 		HPP.args(line)	 								and next if line.match(/<args>/)
@@ -59,6 +58,7 @@ classes.each do |classname, class_info|
 		HPP.headerargs                                  and next if line.match(/<headerargs>/)
 		HPP.headers 	                                and next if line.match(/<headers>/)
 		HPP.typedefs	                                and next if line.match(/<typedefs>/)
+		HPP.enums	                                	and next if line.match(/<enums>/)
 		HPP.classname(line)                             and next
 	end
 end

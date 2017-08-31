@@ -22,6 +22,9 @@ class ClassReader
 
 			classname = ''
 
+			in_enum_set = false
+			enum_offset = 0
+
 			in_method_set = false
 			in_method_definition = false
 			current_method_prototype = nil
@@ -35,7 +38,7 @@ class ClassReader
 				if classname.empty?
 					if line.match(/<classname>.*<\/classname>/)
 						classname             = line.match(/<classname>(.*)<\/classname>/)[1]	 										 
-						class_info[classname] = {'variables' => [], 'methods' => {}, 'constructors' => {}, 'headers' => [], 'typedefs' => []}
+						class_info[classname] = {'variables' => [], 'methods' => {}, 'constructors' => {}, 'headers' => [], 'typedefs' => [], 'enums' => []}
 					end
 				end
 
@@ -58,13 +61,28 @@ class ClassReader
 					next
 				end
 
+				# Detect start and end of Enum Blocks, store it
+				if line.match(/<enum>/)
+					in_enum_set = true 
+					class_info[classname]['enums'][enum_offset] = []
+				end
+				if in_enum_set
+					if line.match(/<\/enum>/)
+						in_enum_set == false 
+						enum_offset += 1
+						next
+					end
+					class_info[classname]['enums'][enum_offset] << line
+					next
+				end
+
 				# Detect Start and End Of Method Blocks, Store Method Prototypes and Defitions
 				in_method_set = true if line.match(/<method>/) 
 				if in_method_set
 					in_method_set = false if line.match(/<\/method>/)
 					if line.match(/<prototype>.*<\/prototype>/) 
 						current_method_prototype = line.match(/<prototype>(.*)<\/prototype>/)[1]		
-						class_info[classname]['methods'][current_method_prototype] = []							
+						class_info[classname]['methods'][current_method_prototype] = []
 					end
 
 					in_method_definition = true if line.match(/<definition>/)				 

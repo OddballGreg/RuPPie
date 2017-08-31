@@ -72,4 +72,8 @@ class HPP
 	def self.classname(line)
 		$output.puts(line.gsub(/<classname>/, $classname)) if $matched == false
 	end
+	
+	def self.enums
+		$enums.each{ |enum| enum.each{ |line| $output.puts(line) if $matched == false } }
+	end
 end
